@@ -324,11 +324,60 @@ def task_3():
 
 
 def task_4():
-    pass
+    class ReadableTextFile:
+    def __init__(self, filename):
+        self.filename = open(filename, mode="r", encoding="utf-8", newline='\r\n')
+
+    def __enter__(self):
+        return self.filename
+
+    def __exit__(self, exc_type, exc_val, exc_tb):
+        return True
+
+    with open('glados_quotes.txt', 'w', encoding='utf-8') as file:
+        print('Только посмотрите!', file=file)
+        print('Как величаво она парит в воздухе', file=file)
+        print('Как орел', file=file)
+        print('На воздушном шаре', file=file)
+
+    with ReadableTextFile('glados_quotes.txt') as file:
+        print(file)
+        for line in file:
+            print(line)
+
+    with open('poem.txt', 'w', encoding='utf-8') as file:
+        print('Я кашлянул в звенящей тишине,', file=file)
+        print('И от шального эха стало жутко…', file=file)
+        print('Расскажет ли утятам обо мне', file=file)
+        print('под утро мной испуганная утка?', file=file)
+
+    with ReadableTextFile('poem.txt') as file:
+        for line in file:
+            print(line)
 
 
 def task_5():
-    pass
+    class Reloopable:
+    def __init__(self, file):
+       self.file = file
+
+    def __enter__(self):
+        return self.file.readlines()
+
+    def __exit__(self, exc_type, exc_val, exc_tb):
+        self.file.close()
+    
+
+    with open('file.txt', 'w') as file:
+        file.write('Evil is evil\n')
+        file.write('Lesser, greater, middling\n')
+        file.write('Makes no difference\n')
+        
+    with Reloopable(open('file.txt')) as reloopable:
+        for line in reloopable:
+            print(line.strip())
+        for line in reloopable:
+            print(line.strip())
 
 
 def task_6():
