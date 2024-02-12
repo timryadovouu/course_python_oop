@@ -96,9 +96,10 @@ def bar_6():
      Создает защищенную область (критическая секция), которая предотвращает одновременный доступ из разных
     потоков к общим ресурсам."""
 
-    from threading import Lock
-    with Lock() as lock:
-        pass
+    # from threading import Lock
+    # with Lock() as lock:
+    #     pass
+
     # защищенная область
     # смело выполняем любые действия, не думая о гонке потоков
 
@@ -325,14 +326,14 @@ def task_3():
 
 def task_4():
     class ReadableTextFile:
-    def __init__(self, filename):
-        self.filename = open(filename, mode="r", encoding="utf-8", newline='\r\n')
+        def __init__(self, filename):
+            self.filename = open(filename, mode="r", encoding="utf-8", newline='\r\n')
 
-    def __enter__(self):
-        return self.filename
+        def __enter__(self):
+            return self.filename
 
-    def __exit__(self, exc_type, exc_val, exc_tb):
-        return True
+        def __exit__(self, exc_type, exc_val, exc_tb):
+            return True
 
     with open('glados_quotes.txt', 'w', encoding='utf-8') as file:
         print('Только посмотрите!', file=file)
@@ -358,14 +359,14 @@ def task_4():
 
 def task_5():
     class Reloopable:
-    def __init__(self, file):
-       self.file = file
+        def __init__(self, ffile):
+           self.file = ffile
 
-    def __enter__(self):
-        return self.file.readlines()
+        def __enter__(self):
+            return self.file.readlines()
 
-    def __exit__(self, exc_type, exc_val, exc_tb):
-        self.file.close()
+        def __exit__(self, exc_type, exc_val, exc_tb):
+            self.file.close()
     
 
     with open('file.txt', 'w') as file:
