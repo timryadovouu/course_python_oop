@@ -1,2 +1,6 @@
-# Stepik course of Python OOP. 
-## Beginning - the end of 2023
+# Stepik course of Python OOP
+
+starts:
+
+- december 2023
+- may 2024 (actual)
